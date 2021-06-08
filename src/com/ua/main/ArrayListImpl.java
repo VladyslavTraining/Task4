@@ -1,17 +1,15 @@
 package com.ua.main;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
-public class ArrayListImpl<T> extends AbstractList<T> {
+public class ArrayListImpl<T> extends AbstractList<T>  {
     private int size;
     private int index;
     private Object[] arr;
-    private final Object[] defautl = {};
+    private static final Object[] DEFAULT = {};
 
     public ArrayListImpl() {
-        this.arr = defautl;
+        this.arr = DEFAULT;
     }
 
     public ArrayListImpl(int capacity) {
@@ -31,16 +29,6 @@ public class ArrayListImpl<T> extends AbstractList<T> {
         size++;
     }
 
-//    private void checkIndex(int index) {
-//        if (index < 0 || index >= this.index)
-//            throw new IllegalArgumentException();
-//    }
-
-//    private void growArray() {
-//        Object[] newArray = new Object[arr.length * 2];
-//        System.arraycopy(arr, 0, newArray, 0, index - 1);
-//        arr = newArray;
-//    }
 
     @Override
     public void add(int index, T item) {
@@ -108,7 +96,7 @@ public class ArrayListImpl<T> extends AbstractList<T> {
     public boolean contains(T item) {
         if (item == null) {
             for (int i = 0; i < arr.length; i++) {
-                if (arr[i] == item) {
+                if (arr[i].equals(item)) {
                     return true;
                 }
             }
@@ -131,13 +119,14 @@ public class ArrayListImpl<T> extends AbstractList<T> {
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<T> iterator() {
         return new IteratorImpl(arr);
     }
 
+
     private static class IteratorImpl<T> implements Iterator<T> {
         private int index = 0;
-        private T[] values;
+        T[] values;
 
         IteratorImpl(T[] values) {
             this.values = values;
@@ -170,6 +159,14 @@ public class ArrayListImpl<T> extends AbstractList<T> {
     }
 
 
+
     public static void main(String[] args) {
+        ArrayListImpl<Integer> list = new ArrayListImpl<>();
+        list.add(11);
+        list.add(20);
+        list.add(3);
+        list.add(40);
+        list.add(5);
+        System.out.println(list);
     }
 }

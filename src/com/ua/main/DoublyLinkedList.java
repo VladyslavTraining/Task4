@@ -26,7 +26,7 @@ public class DoublyLinkedList<T> extends AbstractList<T> {
 
     @Override
     public void add(T item) {
-        Node newNode = new Node(item);
+        Node<T> newNode = new Node<>(item);
         if (head == null) {
             head = tail = newNode;
             head.prev = null;
@@ -44,8 +44,8 @@ public class DoublyLinkedList<T> extends AbstractList<T> {
         if (!(index >= 0 && index <= size)) {
             throw new IndexOutOfBoundsException();
         }
-        Node newNode = new Node(item);
-        Node current = head;
+        Node<T> newNode = new Node<>(item);
+        Node<T> current = head;
         if (index == 0) {
             if (size == 0) {
                 tail = newNode;
@@ -56,7 +56,7 @@ public class DoublyLinkedList<T> extends AbstractList<T> {
             head = newNode;
             size++;
         } else if (index == size) {
-            Node newNode2 = new Node(item);
+            Node<T> newNode2 = new Node<>(item);
             if (size == 0) {
                 head = newNode2;
             } else {
@@ -82,7 +82,7 @@ public class DoublyLinkedList<T> extends AbstractList<T> {
         if (!(index >= 0 && index < size)) {
             throw new IndexOutOfBoundsException();
         }
-        Node<T> newNode = new Node(item);
+        Node<T> newNode = new Node<>(item);
         Node<T> current = head;
         for (int i = 0; i < index; i++) {
             current = current.next;
@@ -117,7 +117,7 @@ public class DoublyLinkedList<T> extends AbstractList<T> {
         if (index == 0) {
             head = head.next;
         } else {
-            Node current = head;
+            Node<T> current = head;
             for (int i = 0; i < index - 1; i++) {
                 current = current.next;
             }
@@ -143,13 +143,11 @@ public class DoublyLinkedList<T> extends AbstractList<T> {
         if (this.head.element == item) {
             return true;
         }
-        Node cur = this.head;
+        Node<T> cur = this.head;
         while (cur != null && cur.element != item) {
             cur = cur.next;
         }
-        if (cur != null) {
-            return true;
-        } else return false;
+        return cur != null;
     }
 
     @Override

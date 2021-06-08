@@ -13,11 +13,11 @@ public class SinglyLinkedList<T> extends AbstractList<T> {
 
     @Override
     public void add(T item) {
-        Node newNode = new Node(item);
+        Node<T> newNode = new Node<>(item);
         if (this.head == null) {
             this.head = newNode;
         } else {
-            Node cur = this.head;
+            Node<T> cur = this.head;
             while (cur.next != null) {
                 cur = cur.next;
             }
@@ -31,8 +31,8 @@ public class SinglyLinkedList<T> extends AbstractList<T> {
         if (!(index >= 0 && index <= size)) {
             throw new IndexOutOfBoundsException();
         }
-        Node newNode = new Node(item);
-        Node cur = this.head;
+        Node<T> newNode = new Node<>(item);
+        Node<T> cur = this.head;
         if (index == 0) {
             newNode.next = head;
             this.head = newNode;
@@ -55,7 +55,7 @@ public class SinglyLinkedList<T> extends AbstractList<T> {
         if (!(index >= 0 && index < size)) {
             throw new IndexOutOfBoundsException();
         }
-        Node<T> newNode = new Node(item);
+        Node<T> newNode = new Node<>(item);
         Node<T> current = head;
         for (int i = 0; i < index; i++) {
             current = current.next;
@@ -70,7 +70,7 @@ public class SinglyLinkedList<T> extends AbstractList<T> {
             size--;
             return;
         }
-        Node cur = this.head, prev = this.head;
+        Node<T> cur = this.head, prev = this.head;
         while (cur != null && cur.data != item) {
             prev = cur;
             cur = cur.next;
@@ -91,7 +91,7 @@ public class SinglyLinkedList<T> extends AbstractList<T> {
         if (index == 0) {
             head = head.next;
         } else {
-            Node current = head;
+            Node<T> current = head;
             for (int i = 0; i < index - 1; i++) {
                 current = current.next;
             }
@@ -116,13 +116,11 @@ public class SinglyLinkedList<T> extends AbstractList<T> {
         if (this.head.data == item) {
             return true;
         }
-        Node cur = this.head;
+        Node<T> cur = this.head;
         while (cur != null && cur.data != item) {
             cur = cur.next;
         }
-        if (cur != null) {
-            return true;
-        } else return false;
+        return cur != null;
     }
 
     @Override
@@ -193,9 +191,8 @@ public class SinglyLinkedList<T> extends AbstractList<T> {
         list.add("var3");
         list.add("var4");
         list.add("var5");
-        list.add("var6");
         System.out.println(list);
-        for (String s : list){
+        for (String s : list) {
             System.out.println(s);
         }
     }

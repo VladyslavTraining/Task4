@@ -1,7 +1,6 @@
 package com.ua.main;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 public class CircularLinkedList<T> extends AbstractList<T> {
 
@@ -15,14 +14,14 @@ public class CircularLinkedList<T> extends AbstractList<T> {
         list.add("var2");
         list.add("var3");
         list.add("var4");
-        list.remove("var3");
+        list.remove("var");
         System.out.println(list.size());
         System.out.println(list);
     }
 
     @Override
     public void add(T item) {
-        Node newNode = new Node(item);
+        Node<T> newNode = new Node<>(item);
         if (head == null) {
             head = newNode;
         } else {
@@ -35,8 +34,8 @@ public class CircularLinkedList<T> extends AbstractList<T> {
 
     @Override
     public void add(int index, T item) {
-        Node newNode = new Node(item);
-        Node temp = head;
+        Node<T> newNode = new Node<>(item);
+        Node<T> temp = head;
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         } else if (index == 0) {
@@ -55,8 +54,6 @@ public class CircularLinkedList<T> extends AbstractList<T> {
                 head = newNode;
             }
         } else {
-
-            temp = head;
             for (int i = 0; i < index - 1; i++)
                 temp = temp.next;
             newNode.next = temp.next;
@@ -72,7 +69,7 @@ public class CircularLinkedList<T> extends AbstractList<T> {
         if (!(index >= 0 && index < size)) {
             throw new IndexOutOfBoundsException();
         }
-        Node<T> newNode = new Node(item);
+        Node<T> newNode = new Node<>(item);
         Node<T> current = head;
         for (int i = 0; i < index; i++) {
             current = current.next;
@@ -82,13 +79,12 @@ public class CircularLinkedList<T> extends AbstractList<T> {
 
     @Override
     public void remove(T item) {
-        int pos = 0;
         if (head == null) {
             System.out.println("list is empty");
         }
         if (head.data == item) {
             if (head.next != head) {
-                Node newNode = null;
+                Node<T> newNode;
                 newNode = head;
                 while (newNode.next != head) {
                     newNode = newNode.next;
@@ -98,10 +94,10 @@ public class CircularLinkedList<T> extends AbstractList<T> {
             } else
                 head = null;
             System.out.println("list is empty");
-        } else if (head.data != item) {
+        } else if (head.data.equals(item)) {
             System.out.println("not found");
         }
-        Node current = head;
+        Node<T> current = head;
         while (current.next != head && current.data != item) {
             tail = current;
             current = current.next;
@@ -110,35 +106,6 @@ public class CircularLinkedList<T> extends AbstractList<T> {
             tail.next = tail.next.next;
         }
     }
-//        Node<T> currentNode = this.head;
-//        while (currentNode != null) {
-//            if (currentNode.data.equals(item)) {
-//                head = currentNode.next;
-//                tail.next = currentNode.next;
-//                size--;
-//                break;
-//            } else {
-//                currentNode = currentNode.next;
-//                size--;
-//            }
-
-
-//        if (head.data.equals(item)) {
-//            head = head.next;
-//            tail.next = head;
-//            size--;
-//            return;
-//        }
-//        Node<T> current = head;
-//        int i = 0;
-//        while (!current.data.equals(item)) {
-//            current = current.next;
-//        }
-//        if (i == size)
-//            throw new NoSuchElementException();
-//        current = current.next;
-//        current.prev = current.next;
-//        size--;
 
 
     @Override
@@ -150,7 +117,7 @@ public class CircularLinkedList<T> extends AbstractList<T> {
             head = head.next;
             tail.next = head;
         } else {
-            Node current = head;
+            Node<T> current = head;
             for (int i = 0; i < index - 1; i++) {
                 current = current.next;
             }
@@ -173,7 +140,7 @@ public class CircularLinkedList<T> extends AbstractList<T> {
 
     @Override
     public boolean contains(T item) {
-        Node currentNode = head;
+        Node<T> currentNode = head;
         if (head != null) {
             do {
                 if (currentNode.data == item) {
